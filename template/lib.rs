@@ -1,53 +1,39 @@
-#![no_std]
+#![cfg_attr(not(feature = "std")), no_std)]
 
 #[cfg(feature = "std")]
 extern crate std;
 
-#[cfg(feature = "alloc")]
-extern crate alloc;
+// --------------------------
+// Data Model
+// --------------------------
 
-const DATA: &str = include_str!("../input.txt");
-
-pub struct ProblemDefinition<'a> {
+pub struct Problem<'a> {
   pub input: &'a str,
 }
 
-pub type Consequent = &'static str; // can be &str in no_std; use alloc::string::String if needed
+// --------------------------
+// Parse
+// --------------------------
 
-#[cfg(test)]
-#[mry::mry]
-fn src_provider<'a>() -> Result<&'a str, &'static str> {
-  Ok(DATA)
+pub fn parse(input: &str) -> Problem<'_> {
+  Problem { input }
 }
 
-#[cfg(not(test))]
-fn src_provider<'a>() -> Result<&'a str, &'static str> {
-  Ok(DATA)
+// --------------------------
+// Solver — Part 1
+// --------------------------
+
+pub fn part1(p: &Problem) -> u64 {
+  // Replace with your Day 1 logic
+  0
 }
 
-pub mod prelude {
-  use super::*;
+// --------------------------
+// Solver — Part 2
+// --------------------------
 
-  pub fn extract<'a>() -> Result<ProblemDefinition<'a>, &'static str> {
-    Ok(ProblemDefinition { input: src_provider()? })
-  }
-
-  pub fn transform<'a>(
-    _data: ProblemDefinition<'a>,
-  ) -> Result<Consequent, &'static str> {
-    // you implement this per-day
-    Err("unimplemented")
-  }
-
-  pub fn load(
-    _result: Result<Consequent, &'static str>,
-  ) -> Result<(), &'static str> {
-    // also implemented per-day
-    Err("unimplemented")
-  }
-}
-
-#[cfg(test)]
-mod tests {
-  // normal tests work because cargo test enables std by default
+#[cfg(feature = "part2")]
+pub fn part2(p: &Problem) -> u64 {
+  // Replace with your Day 1 Part 2 logic
+  0
 }

@@ -1,5 +1,5 @@
+use day_1::*;
 use divan::black_box;
-use __DAY__::*;
 
 #[cfg(feature = "sample")]
 const INPUT: &str = include_str!("../sample.txt");

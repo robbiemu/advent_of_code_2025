@@ -1,5 +1,5 @@
 [package]
-name = "__DAY__"
+name = "day_1"
 version = "0.1.0"
 edition = "2024"
 
@@ -9,6 +9,7 @@ edition = "2024"
 default = []
 part2 = []
 sample = []
+std = []
 
 [dev-dependencies]
 divan = "^0.1"
