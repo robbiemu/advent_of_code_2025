@@ -1,4 +1,4 @@
-use __DAY__::prelude::*;
+use day_3::prelude::*;
 
 
 #[cfg(feature = "sample")]

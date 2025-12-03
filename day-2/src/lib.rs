@@ -31,7 +31,7 @@ pub fn parse(input: &str) -> Problem<'_> {
 // --------------------------
 
 #[cfg(not(feature = "part2"))]
-mod part1_impl {
+pub mod part1_impl {
   use super::{Problem, RangeIter, write_u64_into_buf};
 
   fn is_repeated_pattern(s: &str) -> bool {
@@ -76,7 +76,7 @@ pub use part1_impl::part1;
 // --------------------------
 
 #[cfg(feature = "part2")]
-mod part2_impl {
+pub mod part2_impl {
   use super::{Problem, RangeIter, write_u64_into_buf};
 
   fn is_repeated_at_least_twice(s: &str) -> bool {
