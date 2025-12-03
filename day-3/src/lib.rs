@@ -5,24 +5,22 @@ extern crate std;
 
 // using precomputed powers of 10 for efficiency in embedded/no_std contexts
 #[cfg(feature = "part2")]
-pub const POW10: [u64; 12] = [
-  1,
-  10,
-  100,
-  1_000,
-  10_000,
-  100_000,
-  1_000_000,
-  10_000_000,
-  100_000_000,
-  1_000_000_000,
-  10_000_000_000,
-  100_000_000_000,
-];
+const K: usize = 12;
+#[cfg(feature = "part2")]
+pub const POW10: [u64; K] = {
+  let mut arr = [0u64; K];
+  let mut i = 0;
+  let mut v = 1u64;
+  while i < K {
+    arr[i] = v;
+    v *= 10;
+    i += 1;
+  }
+  arr
+};
+
 
 pub mod prelude {
-  #[cfg(feature = "part2")]
-  pub use crate::POW10;
   pub use crate::{Problem, parse};
 
   #[cfg(not(feature = "part2"))]
@@ -104,23 +102,24 @@ mod part1_impl {
 // --------------------------
 #[cfg(feature = "part2")]
 mod part2_impl {
-  use super::{POW10, Problem};
+  use super::{K, POW10, Problem};
 
   pub fn find_max_joltage(bank: &str) -> u64 {
     let bytes = bank.as_bytes();
 
-    if bytes.len() < 12 {
-      return 0;
+    if bytes.len() < K {
+      unreachable!("Input line too short for part 2 logic");
     }
 
-    let mut best_right: [u64; 11] = [0; 11];
+    let mut best_right: [u64; K - 1] = [0; K - 1];
     let mut acc: u64 = 0;
 
     for (seen, &b) in bytes.iter().rev().enumerate() {
       let first_digit = (b - b'0') as u64;
 
+      // sentinel to indicate we have enough digits seen
       if best_right[10] != 0 {
-        let candidate = first_digit * POW10[11] + best_right[10];
+        let candidate = first_digit * POW10[K - 1] + best_right[K - 2];
         if candidate > acc {
           acc = candidate;
         }
@@ -133,7 +132,7 @@ mod part2_impl {
         new_best[0] = first_digit;
       }
 
-      let max_k = core::cmp::min(seen, 10);
+      let max_k = core::cmp::min(seen, K - 2);
 
       for k in 1..=max_k {
         let new_suffix = first_digit * POW10[k] + best_right[k - 1];
