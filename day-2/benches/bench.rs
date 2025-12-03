@@ -1,8 +1,8 @@
 use day_2::parse;
-#[cfg(not(feature = "sample"))]
-use day_2::part1_impl::*;
-#[cfg(feature = "sample")]
-use day_2::part2_impl::*;
+#[cfg(not(feature = "part2"))]
+use day_2::part1_impl::part1;
+#[cfg(feature = "part2")]
+use day_2::part2_impl::part2;
 use divan::black_box;
 
 #[cfg(feature = "sample")]

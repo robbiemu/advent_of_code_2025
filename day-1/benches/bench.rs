@@ -1,4 +1,8 @@
-use day_1::*;
+use day_1::parse;
+#[cfg(not(feature = "part2"))]
+use day_1::part1_impl::part1;
+#[cfg(feature = "part2")]
+use day_1::part2;
 use divan::black_box;
 
 #[cfg(feature = "sample")]
@@ -7,6 +11,7 @@ const INPUT: &str = include_str!("../sample.txt");
 #[cfg(not(feature = "sample"))]
 const INPUT: &str = include_str!("../input.txt");
 
+#[cfg(not(feature = "part2"))]
 #[divan::bench]
 fn bench_part1() {
   let p = parse(black_box(INPUT));

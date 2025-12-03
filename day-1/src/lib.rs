@@ -47,34 +47,42 @@ pub fn parse(input: &str) -> Problem<'_> {
 // Solver — Part 1
 // --------------------------
 
-pub fn part1(p: &Problem) -> u64 {
-  let mut pos: i16 = 50;
-  let mut zeros = 0;
+#[cfg(not(feature = "part2"))]
+pub mod part1_impl {
+  use super::{parse_instruction, Problem, Turn};
 
-  for raw in p.input.lines() {
-    #[cfg(feature = "std")]
-    eprintln!("Processing line: '{}'\n", raw);
-    let line = raw.trim();
-    if line.is_empty() {
-      continue;
+  pub fn part1(p: &Problem) -> u64 {
+    let mut pos: i16 = 50;
+    let mut zeros = 0;
+
+    for raw in p.input.lines() {
+      #[cfg(feature = "std")]
+      eprintln!("Processing line: '{}'\n", raw);
+      let line = raw.trim();
+      if line.is_empty() {
+        continue;
+      }
+
+      let instruction = parse_instruction(line);
+
+      pos = (pos
+        + match instruction.dir {
+          Turn::Left => -1 * (instruction.amount % 100) as i16,
+          Turn::Right => (instruction.amount % 100) as i16,
+        })
+        % 100;
+
+      if pos == 0 {
+        zeros += 1;
+      }
     }
 
-    let instruction = parse_instruction(line);
-
-    pos = (pos
-      + match instruction.dir {
-        Turn::Left => -1 * (instruction.amount % 100) as i16,
-        Turn::Right => (instruction.amount % 100) as i16,
-      })
-      % 100;
-
-    if pos == 0 {
-      zeros += 1;
-    }
+    zeros
   }
-
-  zeros
 }
+
+#[cfg(not(feature = "part2"))]
+pub use part1_impl::part1;
 
 // --------------------------
 // Solver — Part 2
