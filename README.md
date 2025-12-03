@@ -1,7 +1,9 @@
 # advent_of_code_2025
-_[Advent of Code website](http://adventofcode.com)_
+_see: [Advent of Code](http://adventofcode.com) website_
 
-![Advent of Code 2025 Header Image](path/to/header-image.png)
+<p align="center">
+  <img width="66%" alt="advent-of-code image for 2025, featuring a split design to reflect the halving of the number of puzzles" src="https://github.com/user-attachments/assets/6474eb98-59f1-4265-a1d1-8050d6cfa22d" />
+</p>
 
 This year I'm using Advent of Code to practice Rust with `no_std` —
 at least while it’s still easy. :)
