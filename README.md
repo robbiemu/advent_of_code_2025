@@ -82,3 +82,26 @@ Benchmarks:
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 5,632 bytes (`day-3/target/lib-part1/release/libday_3.rlib`)
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 9,752 bytes (`day-3/target/lib-part2/release/libday_3.rlib`)
+
+---
+
+## day 4
+
+kept the solver `no_std` / `no_alloc`, even though Part 2 needs hefty scratch space:
+
+* Callers hand in every byte of working memory (`present`, `degree`, queue ring buffer + membership bitmap) so the library never touches an allocator.
+* Sliding three-row window builds neighbor degrees without copying the grid, letting the hot loop stay branch-light.
+* `TinySetQueue` reuses caller-owned slices to deliver set-like queue semantics in constant space.
+* Mirrors embedded device patterns — e.g. a USB device controller firmware chews through host-provided DMA buffers without ever allocating, just like this solver consumes externally allocated slices.
+
+Benchmarks:
+
+```
+╰─ bench_part1  39.24 µs      │ 94.41 µs      │ 39.35 µs      │ 41.05 µs      │ 100     │ 100
+╰─ bench_part2  150.9 µs      │ 328.9 µs      │ 152.6 µs      │ 157.9 µs      │ 100     │ 100
+```
+
+`no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 8,416 bytes (`day-4/target/lib-part1/release/libday_4.rlib`)
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 29,144 bytes (`day-4/target/lib-part2/release/libday_4.rlib`)

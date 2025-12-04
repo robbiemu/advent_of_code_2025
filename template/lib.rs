@@ -34,6 +34,8 @@ pub fn parse(input: &str) -> Problem<'_> {
 // --------------------------
 #[cfg(not(feature = "part2"))]
 mod part1_impl {
+  use super::Problem;
+
   pub fn part1(p: &Problem) -> u64 {
     // Replace with your Day 1 logic
     0
@@ -46,6 +48,8 @@ mod part1_impl {
 
 #[cfg(feature = "part2")]
 mod part2_impl {
+  use super::Problem;
+
   pub fn part2(p: &Problem) -> u64 {
     // Replace with your Day 1 Part 2 logic
     0
@@ -72,7 +76,6 @@ mod tests {
     let input = include_str!("../sample.txt");
     let problem = parse(input);
     let result = part2(&problem);
-    todo("result assertion needed");
     assert_eq!(result, 0);
   }
 }
