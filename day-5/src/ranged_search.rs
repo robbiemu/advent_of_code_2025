@@ -51,9 +51,8 @@ impl RangeSearch {
         self.ends[i + 3],
       ]);
 
-      // SIMD condition: (id >= start) & (id < end)
-      let ge = !idv.simd_lt(s); // id >= s
-      let lt = idv.simd_lt(e); // id < e
+      let ge = !idv.simd_lt(s);
+      let lt = idv.simd_lt(e);
       let mask = ge & lt;
 
       let lanes = mask.to_array();
@@ -64,7 +63,7 @@ impl RangeSearch {
       i += LANES;
     }
 
-    // Scalar tail for remaining 0–3 intervals
+    // scalar tail for remaining 0–3 intervals
     let mut found: u8 = 0;
 
     for j in i..n {

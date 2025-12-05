@@ -6,6 +6,8 @@ extern crate std;
 
 use crate::prelude::RangeSearch;
 use crate::prelude::merge_intervals;
+
+
 pub fn part1(ranges: &mut [(u64, u64)], ingredients: &[u64]) -> usize {
   let n = merge_intervals(ranges);
 

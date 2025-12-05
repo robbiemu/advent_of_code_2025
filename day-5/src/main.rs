@@ -4,6 +4,7 @@ mod std_parse;
 
 use std_parse::parse_std;
 
+
 #[cfg(feature = "sample")]
 const INPUT: &str = include_str!("../sample.txt");
 
