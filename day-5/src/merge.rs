@@ -14,7 +14,6 @@ pub fn merge_intervals(ranges: &mut [(u64, u64)]) -> usize {
     if start <= current_end.saturating_add(1) {
       current_end = current_end.max(end);
     } else {
-      // Write the merged interval.
       ranges[out] = (
         current_start,
         current_end.checked_add(1).expect("interval end overflow"),
@@ -25,7 +24,6 @@ pub fn merge_intervals(ranges: &mut [(u64, u64)]) -> usize {
     }
   }
 
-  // Write the final interval
   ranges[out] = (
     current_start,
     current_end.checked_add(1).expect("interval end overflow"),
