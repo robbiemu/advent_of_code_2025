@@ -66,8 +66,8 @@ mod tests {
     let input = include_str!("../sample.txt");
     let problem = parse(input);
     let result = part1(&problem);
-    todo("result assertion needed");
-    assert_eq!(result, 0);
+
+    assert_eq!(result, todo!("result assertion needed"));
   }
 
   #[test]
@@ -76,6 +76,6 @@ mod tests {
     let input = include_str!("../sample.txt");
     let problem = parse(input);
     let result = part2(&problem);
-    assert_eq!(result, 0);
+    assert_eq!(result, todo!("result assertion needed"));
   }
 }

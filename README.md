@@ -132,3 +132,19 @@ bench           fastest       │ slowest       │ median        │ mean      
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 43376 *size depends on SIMD choice*
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 17672 *same core, no additional memory needs*
+
+## day 6
+
+Being the weekend, I started very late and kinda struggled with the meticulous nature of transformations in part 2. As a result got my first "bronze" medal ie millisecond benchmarks.
+
+### Benchmarks:
+
+```
+╰─ bench_part1  34.24 µs      │ 77.45 µs      │ 34.39 µs      │ 35.49 µs      │ 100     │ 100
+╰─ bench_part2  1.215 ms      │ 2.33 ms       │ 1.452 ms      │ 1.447 ms      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 12,272 bytes
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 21,200 bytes
