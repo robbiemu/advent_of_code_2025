@@ -148,3 +148,29 @@ Being the weekend, I started very late and kinda struggled with the meticulous n
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 12,272 bytes
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 21,200 bytes
+
+## day 7
+
+Formalized the **Owner/View** memory architecture that I've been loosely using since Day 5.
+
+Instead of creating ad-hoc vectors in `main` and passing loose slices into the solver, I created a dedicated `ProblemData` struct (in the `std` parsing module) to act as the memory **Owner**. The solver operates on a `Problem` struct (the **View**), which contains nothing but borrowed mutable slices.
+
+For Part 2, the "Quantum" splitting implied exponential growth ($2^N$). I avoided heap explosions by treating the grid like a **streaming signal**:
+
+*   **Formalized Owner/View:** `ProblemData` (std) handles allocation; `Problem` (no_std) handles logic.
+*   **Double-Buffered Simulation:** Part 2 uses two fixed-width row buffers ("Current" and "Next") to track particle counts.
+*   **Zero-Copy Swapping:** The simulation toggles between the two buffers (`core::mem::swap`) without moving data, processing the grid row-by-row.
+*   **Hardware Analogy:** This mirrors **Line Buffering** in embedded video controllers or DMA transfers, where hardware processes one scanline while receiving the next, minimizing memory requirements to $O(Width)$ rather than $O(Total)$.
+
+### Benchmarks:
+
+```
+bench           fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ bench_part1  31.91 µs      │ 67.83 µs      │ 32.16 µs      │ 34.13 µs      │ 100     │ 100
+╰─ bench_part2  34.79 µs      │ 55.2 µs       │ 35.66 µs      │ 36.58 µs      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 7,512 bytes
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 6,904 bytes

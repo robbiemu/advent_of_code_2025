@@ -101,6 +101,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "day-7"
+version = "0.1.0"
+dependencies = [
+ "divan",
+ "gag",
+ "tinysetqueue",
+]
+
+[[package]]
 name = "day_1"
 version = "0.1.0"
 dependencies = [
@@ -320,6 +329,12 @@ dependencies = [
  "quote",
  "syn",
 ]
+
+[[package]]
+name = "tinysetqueue"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f2c1485c8078e2f872b223ac4efda23264489ddc20472b02b5a6d9354306069b"
 
 [[package]]
 name = "unicode-ident"
