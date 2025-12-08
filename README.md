@@ -174,3 +174,32 @@ bench           fastest       │ slowest       │ median        │ mean      
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 7,512 bytes
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 6,904 bytes
+
+## day 8
+
+Part 1 was a small union find: keep the **K shortest edges** and use a DSU to measure circuit sizes. Easy enough in `no_std`, but laborious for me because I did BFS before realizing that was the wrong choice.
+
+Part 2 looked similar… until the graph turned out to be **complete**.
+With 1000 points, that’s ~500k edges — far too many for a `heapless::BinaryHeap`, which stores its entire backing array _on the stack_. The result: instant stack overflow.
+
+So I switched to Prim’s to trade in some complexity for less space:
+
+* No edge storage
+* O(N²) predictable work
+* Only a handful of fixed-size arrays
+* `no_std` friendly
+
+It’s a nice reminder that algorithms you’d pick on a desktop aren’t always the ones you pick when you're pretending RAM is measured in kilobytes instead of gigabytes.
+
+### Benchmarks:
+
+```
+bench           fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ bench_part1  615.9 µs      │ 1.013 ms      │ 661.9 µs      │ 681.7 µs      │ 100     │ 100
+╰─ bench_part2  1.677 ms      │ 2.003 ms      │ 1.699 ms      │ 1.729 ms      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 28,664 bytes
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 24,544 bytes
