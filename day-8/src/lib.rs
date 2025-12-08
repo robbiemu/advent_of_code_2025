@@ -52,7 +52,7 @@ impl From<&str> for ThreeSpacePoint {
   }
 }
 
-// Stores (squared_distance, index_from, index_to)
+// (squared_distance, index_from, index_to)
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct HeapItem((u64, usize, usize));
 
