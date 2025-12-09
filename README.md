@@ -203,3 +203,22 @@ bench           fastest       │ slowest       │ median        │ mean      
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 28,664 bytes
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 24,544 bytes
+
+## day 9
+
+This was a relatively boring mathy one. In part one you aren't quite just looking for the longest diagonal from coordinates, but its cloes to that simple. In part 2, you mechanically build a bounding polygon, then check pairwise coordinates for rectangles that do not escape the polygon but checking edge intersection and that the middle is interior. 
+
+Its the type of thing you just know directly after a while of doing these sorts of problems for gaming, hobby projects, etc. I probably could have optimized it further, but I was happy to find a direct but non-trivial problem with a natural solution that barely needed any consideration for no_std approaches whatsoever.
+
+### Benchmarks:
+
+```
+bench           fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ bench_part1  153.6 µs      │ 177.7 µs      │ 158.4 µs      │ 160.4 µs      │ 100     │ 100
+╰─ bench_part2  7.375 ms      │ 9.529 ms      │ 7.418 ms      │ 7.519 ms      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 16,992 bytes
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 21,240 bytes
