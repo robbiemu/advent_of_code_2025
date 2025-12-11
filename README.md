@@ -222,3 +222,72 @@ bench           fastest       │ slowest       │ median        │ mean      
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 16,992 bytes
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 21,240 bytes
+
+
+## day 10
+
+Admission: this one I don't feel very proud of. This is not doable by anyone not working in np-hard problems. At least not as a daily challenge, in rust, in order to learn no_std. It took me all day using all the tools I had at my disposal outside of collaborating with friends. Part 1 was really brute forcable but I just looked at it and assumed not. Part 2 is not very doable even if you know what you want to do, at least without using external tools like z3 -- certainly not in no_std.
+
+Details on the problem space for part 1 for my input:
+
+```
+=== Cost Distribution ===
+81 1 < cost < 100
+76 100 <= cost < 1K
+38 1K <= cost < 10K
+
+=== Free Variable Distribution ===
+free = 0:  84 cases
+free = 1:  50 cases
+free = 2:  51 cases
+free = 3:   8 cases
+free = 4:   2 cases
+
+=== Statistics ===
+Total cases: 195
+Max cost: 8192
+Average cost: 652
+Median cost: 128
+```
+
+Details on the problem space for part 2:
+
+```
+=== Cost Distribution ===
+84 cost = 1
+39 1 < cost < 100
+30 1K <= cost < 10K
+20 10K <= cost < 100K
+12 100 <= cost < 1K
+5 10M <= cost < 100M
+2 1M <= cost < 10M
+2 100K <= cost < 1M
+1 cost >= 100M
+
+=== Free Variable Distribution ===
+free = 0:  84 cases
+free = 1:  50 cases
+free = 2:  51 cases
+free = 3:   8 cases
+free = 4:   2 cases
+
+=== Statistics ===
+Total cases: 195
+Max cost: 547981281
+Average cost: 3551327
+Median cost: 50
+```
+
+### Benchmarks:
+
+```
+bench           fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ bench_part1  61.04 µs      │ 181.1 µs      │ 64.45 µs      │ 67.1 µs       │ 100     │ 100
+╰─ bench_part2  262.5 ms      │ 280.2 ms      │ 268.8 ms      │ 268.9 ms      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 25,112 bytes
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 30,992 bytes
+
