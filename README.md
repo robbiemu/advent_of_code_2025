@@ -291,3 +291,19 @@ bench           fastest       │ slowest       │ median        │ mean      
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 25,112 bytes
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 30,992 bytes
 
+## day 11
+
+Redemption. Simple dfs with a combinatoric twist.
+
+### Benchmarks:
+
+```
+bench           fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ bench_part1  90.79 µs      │ 177.9 µs      │ 92.47 µs      │ 94.38 µs      │ 100     │ 100
+╰─ bench_part2  208.1 µs      │ 521.6 µs      │ 210.8 µs      │ 218.8 µs      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 31,360 bytes
+* Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 41,016 bytes
