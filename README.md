@@ -307,3 +307,19 @@ bench           fastest       │ slowest       │ median        │ mean      
 
 * Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 31,360 bytes
 * Part 2: `cargo build --release --lib --features part2 --target-dir target/lib-part2` → 41,016 bytes
+
+## day 12
+
+Gave up for a day. Going back to basics, I used an informative heuristic and instead of being close, it was correct.
+
+### Benchmarks:
+
+```
+bench           fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ bench_part1  544.5 µs      │ 662 µs        │ 548.4 µs      │ 551.4 µs      │ 100     │ 100
+```
+
+### `no_std` library builds:
+
+* Part 1: `cargo build --release --lib --target-dir target/lib-part1` → 79,056 bytes
+
